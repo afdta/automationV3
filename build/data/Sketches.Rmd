@@ -1,0 +1,82 @@
+---
+title: "Sketches of automation potential by occupation"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+date: "January 2018"
+---
+
+<br />
+<br />
+
+```{r setup, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width=9, fig.height=6)
+library(tidyverse)
+library(readxl)
+library(jsonlite)
+
+file <- "/home/alec/Projects/Brookings/automation/build/data/automation_workbook4.xlsx"
+
+occs0 <- read_xlsx(file, sheet="occ_usa")
+
+occs1 <- occs0 %>% select(soc_code, soc_desc, soc2_name, soc2_code, automation_potential, emp_chg_1626, emp_2016, wage_avg_2016, log_wage) %>%
+              mutate(wage_group = cut(wage_avg_2016, as.numeric(quantile(wage_avg_2016, probs=c(0,0.25,0.5,0.75, 1))), include.lowest=TRUE, ordered_result=TRUE),
+                     automation_group = cut(automation_potential, c(0,0.3, 0.7,1), labels=c("Low (0-30%)", "Medium (30-70%)", "High (70-100%)"), include.lowest=TRUE, ordered_result=TRUE))
+
+medians <- occs0 %>% group_by(soc2_name) %>% summarise(median = median(automation_potential)) %>% arrange(desc(median)) %>% mutate(soc2_label=sub(" Occupations", "", soc2_name))
+
+occs2 <- occs1 %>% mutate(nm = factor(soc2_name, levels=medians$soc2_name, labels=medians$soc2_label))
+
+quantile(occs2$wage_avg_2016, probs=c(0,0.25,0.5,0.75, 1))
+
+gg <- ggplot(data=occs2)
+```
+
+##1. Automation potential of all occupations
+###Grouped by major occupation with median highlighted
+<br/>
+In this graphic, major occupation groups are sorted by automation potential (median of the group). Each orange/red dot is a detailed occupation, each black dot is the median for the group.
+<br /><br />
+This chart could be made interactive by allowing the user to hover over individual dots. In practice, the user would likely only be able to reliably hover over dots at the extreme because there is so much overlap. But, that may be all the typical user would really want.
+
+```{r simple, echo=FALSE}
+gg + geom_point(aes(y=nm, x=automation_potential, color=automation_group)) + theme_bw() + theme(legend.position = c("right")) + 
+  scale_color_manual(values=c('#fdbe85','#fd8d3c','#d94701')) + scale_x_continuous(breaks=c(0,0.3,0.7,1)) + 
+  labs(color="Automation potential\nrisk groups", x="Low <--- Automation potential ---> High", y="Occupation group") +
+  geom_point(aes(y=soc2_label, x=median), data=medians)
+```
+<br /><br />
+
+...
+...
+
+<br /><br />
+
+##2. Automation potential of all occupations
+###Grouped by major occupation, crossed with log(wage) 
+<br />
+Essentially the same chart as above, with the added dimension of wage. The benefit is that the user can see how automation potential correlates with wage. The downside is added complexity for the user. Are there other correlates that would be worth exploring as well?
+
+```{r bywage, echo=FALSE, fig.height=12, fig.width=12}
+gg + geom_point(aes(y=automation_potential, x=log_wage, color=automation_group)) + facet_wrap("nm", ncol=5, strip.position = "bottom") + theme_bw() + theme(strip.text.x=element_text(hjust=0)) +
+  scale_color_manual(values=c('#fdbe85','#fd8d3c','#d94701')) + scale_x_continuous(position="top") + scale_y_continuous(breaks=c(0,0.3,0.7,1), position="top") + 
+  labs(color="Automation potential\nrisk groups", x="Low wage < ----- > High wage\nLog(wage)\n", y="<--- Automation potential --->\n")
+```
+<br /><br />
+
+...
+...
+
+<br /><br />
+
+
+
+
+
+
+
+
+
+
+
