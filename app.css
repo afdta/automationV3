@@ -38,6 +38,8 @@
   background-position: 50% 50%;
   background-attachment: fixed;
   background-size: cover;
+  border: 1px solid #5abbc9;
+  border-width:1px 0px;
 }
 
 .metro-interactive .section-header.section-header0{
@@ -51,12 +53,17 @@
 
 .metro-interactive .section-header-tab{
   padding:15px;
-  background-color:#FEC335;
+  background-color:#333333;
   border-radius:0px 0px 15px 15px;
-  border:1px solid #FEC335;
+  border:1px solid #333333;
   box-shadow:3px 3px 6px rgba(0,0,0,0.2);
   width:33%;
   min-width:240px;
+}
+
+.metro-interactive .section-header-tab > *{
+  color:#5abbc9;
+  color:#ffffff;
 }
 
 .metro-interactive ul{
@@ -125,14 +132,15 @@
   height:60px;
   margin:0px 10px 5px 0px;
   border-radius:5px;
-  background-color:#FEC335;
-  color:#ffffff;
+  border:2px solid #5abbc9;
+  background-color:#FFFFFF;
+  color:#555555;
   text-align:center;
   box-shadow: 3px 3px 6px rgba(0,0,0,0.2);
 }
 
 .metro-interactive .mi-grid div.mi-icon.mi-red{
-  background-color:#C82C1C;
+  border-color:#FEC335;
 }
 
 .metro-interactive .mi-recs > div > div{
@@ -144,14 +152,21 @@
   padding:10px 10px;
   margin:7px 0px;
   border-radius:5px;
+  border: 1px solid #5abbc9;
   background:#FEC335;
+  background:#ffffff;
   box-shadow:3px 3px 6px rgba(0,0,0,0.2);
 }
 
 .metro-interactive .mi-recs > div > div >p:first-child{
   background: #555555;
   color:#ffffff;
+  border-color:#555555;
   font-weight:bold;
+}
+
+.metro-interactive .cool-blue{
+  color:#5abbc9;
 }
 
 
