@@ -91,7 +91,8 @@
 }
 
 .metro-interactive .mi-graphic-wrap{
-  background-color:#e9e9e9;
+  border:1px solid #aaaaaa;
+  border-radius:11px;
   min-height:400px;
   width:100%;
 }

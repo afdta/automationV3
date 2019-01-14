@@ -42,9 +42,10 @@ This chart could be made interactive by allowing the user to hover over individu
 
 ```{r simple, echo=FALSE}
 gg + geom_point(aes(y=nm, x=automation_potential, color=automation_group)) + theme_bw() + theme(legend.position = c("right")) + 
-  scale_color_manual(values=c('#fdbe85','#fd8d3c','#d94701')) + scale_x_continuous(breaks=c(0,0.3,0.7,1)) + 
-  labs(color="Automation potential\nrisk groups", x="Low <--- Automation potential ---> High", y="Occupation group") +
-  geom_point(aes(y=soc2_label, x=median), data=medians)
+  scale_color_manual(values=c('#7A8484','#5EC6CD','#EC1366')) + scale_x_continuous(breaks=c(0,0.3,0.7,1)) + 
+  labs(color="Automation potential\nrisk groups", fill="Overall", x="Low <--- Automation potential ---> High", y="Occupation group") +
+  geom_point(aes(y=soc2_label, x=median, fill="#333333"), pch=23, color="#ffffff", size=3, data=medians) + 
+  scale_fill_identity(labels=c("Median of occupation group"), guide= guide_legend())
 ```
 <br /><br />
 
