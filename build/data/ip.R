@@ -3,10 +3,10 @@ library(readxl)
 library(jsonlite)
 library(metromonitor)
 
-mm100 <- read_xlsx("/home/alec/Projects/Brookings/metro-monitor/build/data/indicators/2018 Metro Monitor Data - Wide (IS 2017.12.05).xlsx", sheet=1, range="A9:B108", col_names = c("code","title"))
 metros <- metropops() %>% mutate(code=as.numeric(CBSA_Code)) %>% select(code, title=CBSA_Title) %>% mutate(package=1)
 
-tst <- full_join(mm100, metros)
+#tst <- full_join(mm100, metros)
+#mm100 <- read_xlsx("/home/alec/Projects/Brookings/metro-monitor/build/data/indicators/2018 Metro Monitor Data - Wide (IS 2017.12.05).xlsx", sheet=1, range="A9:B108", col_names = c("code","title"))
 
 file <- "/home/alec/Projects/Brookings/automation/build/data/automation_workbook4.xlsx"
 
@@ -22,6 +22,8 @@ cbsa <- read_xlsx(file, sheet="cbsa") %>% select(geo=cbsa_code, name=cbsa_name,
                                                  e00=emsi_emp_auto_2000, e16=emsi_emp_auto_2016, e26=emsi_emp_auto_2026,
                                                  sh00=share_auto_2000, sh16=share_auto_2016, sh26=share_auto_2026) %>% 
                                                 filter(geo %in% metros$code)
+
+ggplot(cbsa %>% arrange(sh16) %>% mutate(met = factor(name, levels=name))) + geom_col(aes(x=met, y=sh16))
 
 state <- read_xlsx(file, sheet="state" ) %>% select(state_code, name=state_name, 
                                                     e00=emsi_emp_auto_2000, e16=emsi_emp_auto_2016, e26=emsi_emp_auto_2026,

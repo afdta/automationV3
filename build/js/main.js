@@ -14,7 +14,7 @@ function main(){
   //browser degradation
   if(compat.browser()){
     setTimeout(function(){
-      occ_graphic(occ_container)();
+      occ_graphic(occ_container);
       map_graphic(map_container);
     }, 0);
   }

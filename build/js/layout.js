@@ -32,10 +32,12 @@ export default function layout(container, width){
 
     var main = wrap.append("div").classed("c-fix",true);
     var map_wrap = main.append("div").style("float","left").style("overflow","visible");
-    panels.side = main.append("div").style("float","right").style("width","220px")
-                        .style("position","relative").style("z-index","10").style("min-height","50px");
+    //these are exposed via api. map_wrap is not.
     panels.map = map_wrap.append("div");
-    panels.mobile = wrap.append("div");
+    panels.side = main.append("div").classed("c-fix",true).style("float","right").style("width","220px")
+                        .style("position","relative").style("z-index","10").style("min-height","50px");
+    
+    panels.mobile = wrap.append("div").classed("c-fix",true);
 
     //EXPOSE VIA API
     scope.panels = panels;
