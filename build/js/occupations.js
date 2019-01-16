@@ -320,7 +320,7 @@ export default function occ_graphic(container){
 
         var tris = markers.selectAll("path").data(function(d){return [d]});
         tris.enter().append("path").merge(tris)
-                .attr("d", "M0,-10.5 l6,0 l-6,11, l-6,-11 z")
+                .attr("d", "M0,-10.5 l6,0 l-6,11 l-6,-11 z")
                 .transition().duration(detail_shown ? 700 : 0)
                 .attr("fill",function(d){
                     return detail_shown ? "#555555" : auto_fill(d.auto)
