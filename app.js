@@ -5791,6 +5791,7 @@
 
 	    window.addEventListener("resize", function(){
 	        clearTimeout(resize_timeout);
+	        hide_tooltip();
 	        if(scope.responsive){
 	            wrap0.style("overflow","hidden"); //avoid horizontal scroll bars while resizing
 	            resize_timeout = setTimeout(draw, 0);
